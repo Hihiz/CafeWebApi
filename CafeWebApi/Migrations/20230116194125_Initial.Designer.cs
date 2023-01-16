@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CafeWebApi.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230116180236_Initial")]
+    [Migration("20230116194125_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -62,6 +62,38 @@ namespace CafeWebApi.Migrations
                             Description = "Одним из наиболее любимых видов первых блюд большинства людей считается борщ.",
                             Name = "Борщ",
                             Type = "Зеленый"
+                        });
+                });
+
+            modelBuilder.Entity("CafeWebApi.Data.TypeDish", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TypesDish");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Мясной"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Сырный"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Зеленый"
                         });
                 });
 #pragma warning restore 612, 618

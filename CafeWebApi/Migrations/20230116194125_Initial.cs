@@ -27,6 +27,19 @@ namespace CafeWebApi.Migrations
                     table.PrimaryKey("PK_Breakfasts", x => x.Id);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TypesDish",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TypesDish", x => x.Id);
+                });
+
             migrationBuilder.InsertData(
                 table: "Breakfasts",
                 columns: new[] { "Id", "Description", "Name", "Type" },
@@ -36,6 +49,16 @@ namespace CafeWebApi.Migrations
                     { 2, "Соус (в перевод с французского языка sauce означает «поливку») представляет собой дополнение к блюду/гарниру. С помощью него удается сделать блюдо более привлекательным и повысить его калорийность.", "Соус", "Сырный" },
                     { 3, "Одним из наиболее любимых видов первых блюд большинства людей считается борщ.", "Борщ", "Зеленый" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "TypesDish",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Мясной" },
+                    { 2, "Сырный" },
+                    { 3, "Зеленый" }
+                });
         }
 
         /// <inheritdoc />
@@ -43,6 +66,9 @@ namespace CafeWebApi.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Breakfasts");
+
+            migrationBuilder.DropTable(
+                name: "TypesDish");
         }
     }
 }

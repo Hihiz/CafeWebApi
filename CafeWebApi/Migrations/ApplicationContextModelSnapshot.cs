@@ -61,6 +61,38 @@ namespace CafeWebApi.Migrations
                             Type = "Зеленый"
                         });
                 });
+
+            modelBuilder.Entity("CafeWebApi.Data.TypeDish", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TypesDish");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Мясной"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Сырный"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Зеленый"
+                        });
+                });
 #pragma warning restore 612, 618
         }
     }
