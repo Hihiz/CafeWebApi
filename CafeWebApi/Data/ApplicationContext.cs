@@ -7,6 +7,7 @@ namespace CafeWebApi.Data
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
 
         public DbSet<Breakfast> Breakfasts { get; set; }
+        public DbSet<TypeDish> TypesDish { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -17,6 +18,15 @@ namespace CafeWebApi.Data
                     new Breakfast { Id=2, Name="Соус", Type = "Сырный", Description= "Соус (в перевод с французского языка sauce означает «поливку») представляет собой дополнение к блюду/гарниру. С помощью него удается сделать блюдо более привлекательным и повысить его калорийность."},
                     new Breakfast { Id=3, Name="Борщ", Type = "Зеленый", Description = "Одним из наиболее любимых видов первых блюд большинства людей считается борщ."}
                  });
+
+            modelBuilder.Entity<TypeDish>().HasData(
+                new TypeDish[]
+                {
+                    new TypeDish { Id=1, Name="Мясной" },
+                    new TypeDish { Id=2, Name="Сырный" },
+                    new TypeDish { Id=3, Name="Зеленый" }
+                });
+
         }
     }
 }
