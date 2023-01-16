@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CafeWebApi.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230116194125_Initial")]
+    [Migration("20230116201008_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -33,11 +33,12 @@ namespace CafeWebApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("TypeDishId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TypeDishId");
 
                     b.ToTable("Breakfasts");
 
@@ -47,21 +48,21 @@ namespace CafeWebApi.Migrations
                             Id = 1,
                             Description = "Суп являются основным первым блюдом любого обеденного комплекса. Каждая кухня мира предлагает множество разнообразных рецептов, которые кардинально отличаются. Это позволяет не только насытить организм, но и разнообразить свой рацион, удовлетворив вкусовые предпочтения даже наиболее изысканных гурманов.",
                             Name = "Суп",
-                            Type = "Мясной"
+                            TypeDishId = 1
                         },
                         new
                         {
                             Id = 2,
                             Description = "Соус (в перевод с французского языка sauce означает «поливку») представляет собой дополнение к блюду/гарниру. С помощью него удается сделать блюдо более привлекательным и повысить его калорийность.",
                             Name = "Соус",
-                            Type = "Сырный"
+                            TypeDishId = 2
                         },
                         new
                         {
                             Id = 3,
                             Description = "Одним из наиболее любимых видов первых блюд большинства людей считается борщ.",
                             Name = "Борщ",
-                            Type = "Зеленый"
+                            TypeDishId = 3
                         });
                 });
 
@@ -95,6 +96,17 @@ namespace CafeWebApi.Migrations
                             Id = 3,
                             Name = "Зеленый"
                         });
+                });
+
+            modelBuilder.Entity("CafeWebApi.Data.Breakfast", b =>
+                {
+                    b.HasOne("CafeWebApi.Data.TypeDish", "TypeDish")
+                        .WithMany()
+                        .HasForeignKey("TypeDishId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TypeDish");
                 });
 #pragma warning restore 612, 618
         }
