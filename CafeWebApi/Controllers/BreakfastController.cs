@@ -50,8 +50,7 @@ namespace CafeWebApi.Controllers
                 return BadRequest("Breakfast not found");
 
             breakfast.Name = request.Name;
-            breakfast.Type = request.Type;
-            breakfast.Type = request.Type;
+            breakfast.TypeDishId = request.TypeDishId;
             breakfast.Description = request.Description;
 
             await _db.SaveChangesAsync();
