@@ -8,7 +8,6 @@ namespace CafeWebApi.Controllers
     [ApiController]
     public class BreakfastController : ControllerBase
     {
-
         private readonly ApplicationContext _db;
 
         public BreakfastController(ApplicationContext db)
