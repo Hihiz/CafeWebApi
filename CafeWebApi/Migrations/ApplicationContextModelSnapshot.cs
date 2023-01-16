@@ -30,11 +30,12 @@ namespace CafeWebApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("TypeDishId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TypeDishId");
 
                     b.ToTable("Breakfasts");
 
@@ -44,22 +45,65 @@ namespace CafeWebApi.Migrations
                             Id = 1,
                             Description = "Суп являются основным первым блюдом любого обеденного комплекса. Каждая кухня мира предлагает множество разнообразных рецептов, которые кардинально отличаются. Это позволяет не только насытить организм, но и разнообразить свой рацион, удовлетворив вкусовые предпочтения даже наиболее изысканных гурманов.",
                             Name = "Суп",
-                            Type = "Мясной"
+                            TypeDishId = 1
                         },
                         new
                         {
                             Id = 2,
                             Description = "Соус (в перевод с французского языка sauce означает «поливку») представляет собой дополнение к блюду/гарниру. С помощью него удается сделать блюдо более привлекательным и повысить его калорийность.",
                             Name = "Соус",
-                            Type = "Сырный"
+                            TypeDishId = 2
                         },
                         new
                         {
                             Id = 3,
                             Description = "Одним из наиболее любимых видов первых блюд большинства людей считается борщ.",
                             Name = "Борщ",
-                            Type = "Зеленый"
+                            TypeDishId = 3
                         });
+                });
+
+            modelBuilder.Entity("CafeWebApi.Data.TypeDish", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TypesDish");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Мясной"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Сырный"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Зеленый"
+                        });
+                });
+
+            modelBuilder.Entity("CafeWebApi.Data.Breakfast", b =>
+                {
+                    b.HasOne("CafeWebApi.Data.TypeDish", "TypeDish")
+                        .WithMany()
+                        .HasForeignKey("TypeDishId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TypeDish");
                 });
 #pragma warning restore 612, 618
         }
